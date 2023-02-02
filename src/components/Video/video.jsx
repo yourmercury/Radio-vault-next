@@ -105,7 +105,7 @@ export default function VideoForIframe({ src, id }) {
       ></video>
 
       <div className="z-10 w-full flex flex-col justify-between h-full">
-        <VideoHeader logo={""} title={""} />
+        {/* <VideoHeader logo={""} title={""} /> */}
         {fresh && (
           <BigPlay
             title={""}
