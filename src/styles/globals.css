@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,900&display=swap');
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+
+body {
+  height: 100vh;
+  width: 100vw;
+  font-family: 'Montserrat', sans-serif;
+}
+
+#video-for-iframe * {
+  box-sizing: border-box;
+  /* font-family: 'Montserrat', sans-serif; */
+  /* color: #0000003e; */
+}
+
+#video-for-iframe span {
+  font-size: calc(10px + 0.5vh);
+}
+
+#video-for-iframe img.icon {
+  height: calc(10px + 0.5vh);
+}
+
+#video-for-iframe img.control-icon {
+  height: calc(10px + 1vh);
+  /* color: #f2300460 */
+}
+
+#video-for-iframe img.big-play {
+  height: calc(50px + 3vh);
+  width: calc(50px + 3vh);
+}
+
+.centered {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+video.fullscreen {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  left: 0px;
+  z-index: 10000000;
+}
