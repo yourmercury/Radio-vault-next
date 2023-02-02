@@ -7,7 +7,7 @@ import Button from "./button";
 import { useRouter } from "next/router";
 
 export default function Dashboard({ }) {
-  const { vaults, setVaults, account } = useContext(UserContext);
+  const { vaults, setVaults, account, user } = useContext(UserContext);
   const [loaded, load] = useState(false);
 
   function loadVaults(signal) {
@@ -25,12 +25,14 @@ export default function Dashboard({ }) {
         success: {
           render({ data }) {
             // console.log(data);
+            load(true);
             setVaults(data.metadatas);
             return `Success!`;
           },
         },
         error: {
           render({ data }) {
+            load(true);
             return "Oops! Something went wrong";
           },
         },
@@ -40,10 +42,10 @@ export default function Dashboard({ }) {
 
   useEffect(() => {
     const controller = new AbortController()
-    if (!loaded) {
-      load(true);
-      return;
-    }
+    // if (!loaded) {
+    //   load(true);
+    //   return;
+    // }
     loadVaults(controller.signal);
 
     return ()=>{
@@ -55,10 +57,10 @@ export default function Dashboard({ }) {
     <div>
       <div className="flex">
         <div className="flex items-center w-fit ml-auto">
-          <div>
+          {user && <div>
             <Text cls={`text-[11px]`}>Total Streams</Text>
-            <Text cls={`font-bold`}>120,000</Text>
-          </div>
+            <Text cls={`font-bold text-right`}>{user.totalStreams}</Text>
+          </div>}
           <div className="bg-theme-red w-fit h-[25px] rounded p-1 relative ml-3">
             <img src={"/assets/chart.svg"} className={`h-[100%]`} />
           </div>
@@ -86,6 +88,9 @@ export default function Dashboard({ }) {
           {/* <Track />
           <Track />
           <Track /> */}
+          {(!vaults || vaults.length == 0) && loaded && 
+            <div className="text-center">You Have no vaults</div>
+          }
         </div>
       </div>
     </div>
