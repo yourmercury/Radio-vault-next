@@ -32,18 +32,23 @@ export function parseUrl(link) {
 }
 
 export function maskStream(url, res, title) {
-  // console.log(parseUrl(url));
+  console.log(process.env.DOMAIN_FRONTEND);
+  
   axios({
     method: "get",
     url: parseUrl(url),
     responseType: "stream",
+    headers: {
+      "Range": `bytes ${10}-${1000}`,
+      "Accept-Ranges": "bytes",
+    },
   })
     .then((response) => {
       res.writeHead(response.status, {
         ...response.headers,
         "Cache-Control": "no-cache",
         "X-Media-Title": title,
-        "Access-Control-Allow-Origin": "http:localhost:3000",
+        "Access-Control-Allow-Origin": process.env.DOMAIN_FRONTEND,
       });
       console.log(response.status);
       response.data.pipe(res);
@@ -68,10 +73,9 @@ export function parseSecondsToTime(x, full) {
   let m = (h - Math.floor(h)) * 60;
   let s = (m - Math.floor(m)) * 60;
 
-  return h>0 || full? `${twoDigitalize(m)}:${twoDigitalize(s)}`:`${twoDigitalize(h)}:${twoDigitalize(m)}:${twoDigitalize(s)}`;
+  return h > 0 || full
+    ? `${twoDigitalize(m)}:${twoDigitalize(s)}`
+    : `${twoDigitalize(h)}:${twoDigitalize(m)}:${twoDigitalize(s)}`;
 }
 
-
-export async function streamWithRange(from, to) {
-
-}
+export async function streamWithRange(from, to) {}
