@@ -48,7 +48,7 @@ export function maskStream(url, res, title) {
         ...response.headers,
         "Cache-Control": "no-cache",
         "X-Media-Title": title,
-        "Access-Control-Allow-Origin": process.env.DOMAIN_FRONTEND,
+        // "Access-Control-Allow-Origin": process.env.DOMAIN_FRONTEND,
       });
       console.log(response.status);
       response.data.pipe(res);
