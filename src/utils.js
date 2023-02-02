@@ -31,7 +31,7 @@ export function parseUrl(link) {
   return check ? process.env.IPFS_GATEWAY + "/" + link : link;
 }
 
-export function maskStream(url, res, title) {
+export function maskStream(url, res, title, fs) {
   console.log(process.env.DOMAIN_FRONTEND);
   
   axios({
@@ -39,8 +39,8 @@ export function maskStream(url, res, title) {
     url: parseUrl(url),
     responseType: "stream",
     headers: {
-      "Range": `bytes ${10}-${1000}`,
-      "Accept-Ranges": "bytes",
+    //   "Range": `bytes=${0}-${100000000}`,
+    // //   "Accept-Ranges": "bytes",
     },
   })
     .then((response) => {
@@ -48,7 +48,7 @@ export function maskStream(url, res, title) {
         ...response.headers,
         "Cache-Control": "no-cache",
         "X-Media-Title": title,
-        // "Access-Control-Allow-Origin": process.env.DOMAIN_FRONTEND,
+        "Access-Control-Allow-Origin": process.env.DOMAIN_FRONTEND,
       });
       console.log(response.status);
       response.data.pipe(res);
