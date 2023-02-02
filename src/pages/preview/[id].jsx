@@ -6,7 +6,7 @@ import { useEffect, useRef } from "react";
 export async function getServerSideProps(context) {
   let metadata = null;
   try {
-    let res = await axios(`http://localhost:3000/api/metadata-app/${context.params.id}`);
+    let res = await axios(`${process.env.NEXT_PUBLIC_DOMAIN}/metadata-app/${context.params.id}`);
     if (res.status < 300) {
       metadata = res.data;
       console.log(metadata);
