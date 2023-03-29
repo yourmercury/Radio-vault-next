@@ -7,7 +7,7 @@ export const nftStorageEndPoint = "https://nftstorage.link/ipfs";
 
 async function uploadToServer(ipfsUrl, userID, title, signal) {
   try {
-    let res = await fetch(`${endPoint}/create-vault`, {
+    let res = await fetch(`${location.origin}/api/create-vault`, {
       method: "POST",
       body: JSON.stringify({
         controller: userID,
@@ -74,7 +74,7 @@ export async function uploadToIpfsAndServer(
 
 export async function getVaults(address, signal) {
   try {
-    let res = await fetch(`${endPoint}/get-vaults/${address}`, signal? {signal}: undefined);
+    let res = await fetch(`${location.origin}/api/get-vaults/${address}`, signal? {signal}: undefined);
     // if(res.status != 200 || res.status != 201) throw(res);
     res = await res.json();
     return res;
@@ -95,7 +95,7 @@ export async function getMetadata(link, id, signal) {
     link = nftStorageEndPoint + "/" + link;
     let res;
     if (id) {
-      res = await axios(`${endPoint}/metadata-app/${id}`, signal? {signal}: undefined);
+      res = await axios(`${location.origin}/api/metadata-app/${id}`, signal? {signal}: undefined);
     }else {
       res = await axios(link, signal? {signal}: undefined);
     }
@@ -107,7 +107,7 @@ export async function getMetadata(link, id, signal) {
 
 export async function getUser(addr, signal) {
   try {
-    let res = await axios(`${endPoint}/get-user/${addr}`, signal? {signal}: undefined);
+    let res = await axios(`${location.origin}/api/get-user/${addr}`, signal? {signal}: undefined);
     if (res.status != 200) {
       throw "error";
     }
@@ -119,7 +119,7 @@ export async function getUser(addr, signal) {
 
 export async function saveWhiteList(whitelist, addr, signal) {
   try {
-    let res = await fetch(`${endPoint}/edit-user/${addr}`, {
+    let res = await fetch(`${location.origin}/api/edit-user/${addr}`, {
       method: "POST",
       body: JSON.stringify(whitelist),
       headers: {
