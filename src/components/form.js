@@ -21,11 +21,13 @@ export const web2_form = {
     "writer_PRO_affiliation": "",
     "IPI_number": "",
     "writer_ownership_share": "",
-    "licence": ""
+    "license": ""
 };
 
 export const web3_form = {
     name: "",
     collection: "",
+    genre: "",
+    creator: "",
     description: "",
 }

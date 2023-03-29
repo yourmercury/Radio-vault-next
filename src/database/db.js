@@ -59,7 +59,7 @@ class Database {
 
         whiteList: {
           type: [String],
-          default: ["localhost:3001"],
+          default: [],
         },
 
         blackList: {

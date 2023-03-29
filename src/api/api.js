@@ -33,10 +33,13 @@ const client = new NFTStorage({ token: API_KEY });
 
 export async function uploadToIpfsAndServer(
   image,
+  cover,
   name,
   description,
   userID,
-  web2
+  web2,
+  genre,
+  creator
 ) {
   try {
     let url = URL.createObjectURL(image);
@@ -44,14 +47,23 @@ export async function uploadToIpfsAndServer(
     let blob = await res.blob();
     const content = new File([image], v4() + "." + blob.type.split("/")[1]);
 
+    let coverUrl = URL.createObjectURL(cover);
+    let coverRes = await fetch(coverUrl);
+    let coverBlob = await coverRes.blob();
+    const coverContent = new File([cover], v4() + "." + coverBlob.type.split("/")[1]);
+
     const baseURI = await client.store({
       name,
       video: content,
-      image: content,
-      description,
+      image: coverContent,
       description,
       collection: name,
       web2_metadata: web2,
+      attributes: [
+        { trait_type: "genre", value: genre },
+        { trait_type: "license", value: web2.license },
+        { trait_type: "creator", value: creator },
+      ],
     });
     console.log(baseURI);
     return await uploadToServer(baseURI.url, userID, name);

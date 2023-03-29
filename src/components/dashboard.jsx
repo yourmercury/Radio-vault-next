@@ -151,7 +151,7 @@ function Track({ streams, link, id }) {
         <Text
           cls={"text-12px underline"}
           onClick={() => {
-            navigator.clipboard.writeText(`${endPoint}/metadata/${id}`);
+            navigator.clipboard.writeText(`${location.origin}/api/metadata/${id}`);
             toast("copied");
           }}
         >

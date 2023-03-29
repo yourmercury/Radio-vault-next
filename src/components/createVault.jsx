@@ -13,6 +13,7 @@ import { UserContext } from "../contexts/user.contexts";
 export default function CreateVault({ }) {
   const { account } = useContext(UserContext);
   const [imageFile, setImageFile] = useState(null);
+  const [coverImage, setCoverImage] = useState(null);
   const [web2Form, setWeb2Form] = useState({ ...web2_form });
   const [web3Form, setWeb3Form] = useState({ ...web3_form });
   const [error, setError] = useState(false);
@@ -21,10 +22,10 @@ export default function CreateVault({ }) {
   const route = useRouter();
 
   function next() {
-    if (stage == 0 && !imageFile) {
-      return;
+    if (imageFile && coverImage) {
+      stage < 2 && setStage(stage + 1);
     }
-    stage < 2 && setStage(stage + 1);
+    else return;
   }
 
   function back() {
@@ -46,10 +47,13 @@ export default function CreateVault({ }) {
         try {
           await uploadToIpfsAndServer(
             imageFile,
+            coverImage,
             web3Form.name,
             web3Form.description,
             account,
-            web2Form
+            web2Form,
+            web3Form.genre,
+            web3Form.creator,
           );
         } catch (error) {
           console.log(error);
@@ -159,7 +163,7 @@ export default function CreateVault({ }) {
 
       <div className="w-[360px] mx-auto my-[100px]">
         {stage == 0 && (
-          <UploadMedia setImageFile={setImageFile} imageFile={imageFile} />
+          <UploadMedia setImageFile={setImageFile} imageFile={imageFile} coverImage={coverImage} setCoverImage={setCoverImage} />
         )}
         {stage == 1 && <Web2Metadata form={web2Form} setForm={setWeb2Form} />}
         {stage == 2 && (

@@ -25,8 +25,8 @@ export default async function handler(req, res) {
         metadata = await _getMetadata(url);
         if (metadata.video)
           metadata.video = `${process.env.DOMAIN_FRONTEND}/iframe/${id}`;
-        if (metadata.image)
-          metadata.image = `${process.env.DOMAIN_FRONTEND}/iframe/${id}`;
+        // if (metadata.image)
+        //   metadata.image = `${process.env.DOMAIN_FRONTEND}/iframe/${id}`;
         if (metadata.audio)
           metadata.audio = `${process.env.DOMAIN_FRONTEND}/iframe/${id}`;
 

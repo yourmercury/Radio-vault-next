@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@next/font": "13.1.4",
+    "@stacks/connect": "^7.2.1",
     "axios": "^1.2.3",
     "ethers": "^5.7.2",
     "mongoose": "^6.8.4",
