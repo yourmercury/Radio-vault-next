@@ -30,6 +30,10 @@ export default function VideoForIframe({ src, id }) {
     video.current.currentTime = t;
   }
 
+  const mute = ()=>{
+    video.current.mute = true;
+  }
+
   useEffect(() => {
     let totalTimeStreamed = 0;
     let _isPlaying = false;
@@ -99,7 +103,8 @@ export default function VideoForIframe({ src, id }) {
         src={src}
         ref={video}
         onClick={()=>{
-          pause()
+          console.log("clicked")
+          
         }}
         // autoPlay
         className="absolute top-[0px] left-[0] h-[100vh] w-[100vw] block z-[-1] bg-black"
@@ -107,7 +112,16 @@ export default function VideoForIframe({ src, id }) {
         // controls
       ></video>
 
-      <div className="z-10 w-full flex flex-col justify-between h-full">
+      <div className="z-10 w-full flex flex-col justify-between h-full"
+        onClick={()=>{
+          if(fresh) return;
+          if(isPlaying){
+            pause();
+          }else {
+            play();
+          }
+        }}
+      >
         {/* <VideoHeader logo={""} title={""} /> */}
         {fresh && (
           <BigPlay

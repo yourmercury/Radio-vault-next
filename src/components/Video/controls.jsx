@@ -63,7 +63,13 @@ export default function Controls({fullscreen, isPlaying, pause, play, duration, 
     }, [])
     
     return (
-        <div className="py-[4vh] px-[4vw] bg-gradient-to-b from-[#ffffff00] to-black mt-auto">
+        <div className="py-[4vh] px-[4vw] bg-gradient-to-b from-[#ffffff00] to-black mt-auto"
+          onClick={(e)=>{
+            e.stopPropagation();
+          }}
+        >
+
+
           <div className="flex">
             <img
               className="h-[35px] w-[35px] rounded-full ml-auto mb-[3.5vh]"
