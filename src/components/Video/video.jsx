@@ -98,6 +98,9 @@ export default function VideoForIframe({ src, id }) {
       <video
         src={src}
         ref={video}
+        onClick={()=>{
+          pause()
+        }}
         // autoPlay
         className="absolute top-[0px] left-[0] h-[100vh] w-[100vw] block z-[-1] bg-black"
         controlsList="nodownload"

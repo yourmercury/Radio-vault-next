@@ -10,7 +10,10 @@ export default function BigPlay({ play }) {
           src="/assets/big-play.svg"
           alt=""
           className="bg-white rounded-full big-play"
-          onClick={play}
+          onClick={(e)=>{
+            e.stopPropagation();
+            play();
+          }}
         />
       </div>
       {/* <div className="flex-1"></div> */}
