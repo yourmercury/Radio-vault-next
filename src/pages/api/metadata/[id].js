@@ -1,7 +1,30 @@
 import db from "@/database/db";
 import { _getMetadata, maskStream, parseUrl } from "@/utils";
+import Cors from "cors";
+
+const cors = Cors({
+  method: ["GET"]
+})
+
+function runMiddleware(
+  req,
+  res,
+  fn
+) {
+  return new Promise((resolve, reject) => {
+    fn(req, res, (result) => {
+      if (result instanceof Error) {
+        return reject(result)
+      }
+
+      return resolve(result)
+    })
+  })
+}
+
 
 export default async function handler(req, res) {
+    await runMiddleware(req, res, cors);
     try {
         let id = req.query.id;
         let client = req.headers.referer || req.headers.host;
