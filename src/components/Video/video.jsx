@@ -20,6 +20,7 @@ export default function VideoForIframe({ src, id }) {
 
   const pause = () => {
     video.current.pause();
+    console.log(video.current.muted)
   };
 
   const fullscreen = () => {
@@ -31,7 +32,7 @@ export default function VideoForIframe({ src, id }) {
   }
 
   const mute = ()=>{
-    video.current.mute = true;
+    video.current.muted = !video.current.muted;
   }
 
   useEffect(() => {
@@ -143,6 +144,7 @@ export default function VideoForIframe({ src, id }) {
             waiting={false}
             fullscreen={fullscreen}
             seek={seek}
+            mute={mute}
           />
         )}
       </div>

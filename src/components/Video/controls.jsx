@@ -1,7 +1,7 @@
 import { parseSecondsToTime } from "@/utils";
 import { useEffect, useRef } from "react";
 
-export default function Controls({fullscreen, isPlaying, pause, play, duration, currentTime, seek}){
+export default function Controls({fullscreen, isPlaying, pause, play, duration, currentTime, seek, mute}){
     const bar = useRef(null);
     const progress = useRef(null)
     const nob = useRef(null);
@@ -95,7 +95,9 @@ export default function Controls({fullscreen, isPlaying, pause, play, duration, 
               <img src={`/assets/${isPlaying? "pause": "play"}.svg`} alt="" className="mr-[25px] control-icon" 
                 onClick={isPlaying? pause : play}
               />
-              <img src="/assets/volume-up.svg" alt="" className="mr-[25px] control-icon" />
+              <img src="/assets/volume-up.svg" alt="" className="mr-[25px] control-icon" onClick={()=>{
+                mute()
+              }}/>
               {/* <div className="rounded-xl p-1 flex bg-[#ffffff] mr-[25px]">
                   <div className="h-[15px] w-[15px] bg-theme-orange mx-[2px] rounded"></div>
                   <div className="h-[15px] w-[15px] bg-theme-orange mx-[2px] rounded"></div>
