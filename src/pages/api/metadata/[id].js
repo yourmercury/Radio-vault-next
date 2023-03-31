@@ -37,8 +37,10 @@ export default async function handler(req, res) {
           return;
         }
         let user = await db.getUser("controller", record.controller);
+        client = client.replace("https://", "").replace("http://", "").replace("/", "");
         let whiteListed = user ? user.whiteList.includes(client) : true;
         
+        // console.log(user.whiteList, client);
         if (!whiteListed) {
             res.status(403).json({ error: "permission denied" });
             return;
