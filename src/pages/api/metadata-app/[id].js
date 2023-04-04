@@ -5,7 +5,6 @@ import Cors from "cors";
 
 const cors = Cors({
   method: ["GET"],
-  // origin: 'app.songstoradio.com'
 })
 
 function runMiddleware(
