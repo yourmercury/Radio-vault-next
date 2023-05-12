@@ -17,7 +17,7 @@ function authenticate(setAccount) {
     redirectTo: "/",
     onFinish: () => {
       let userData = userSession.loadUserData();
-      setAccount(userData.profile.stxAddress.mainnet);
+      setAccount(userData.profile.stxAddress[process.env.NEXT_PUBLIC_NETWORK || "mainnet"]);
     },
     userSession: userSession,
   });
@@ -41,11 +41,11 @@ export default function UserContextProvider({ children }) {
   useEffect(() => {
     if (userSession.isSignInPending()) {
       userSession.handlePendingSignIn().then((userData) => {
-        setAccount(userData.profile.stxAddress.mainnet);
+        setAccount(userData.profile.stxAddress[process.env.NEXT_PUBLIC_NETWORK || "mainnet"]);
       });
     } else if (userSession.isUserSignedIn()) {
         let userData = userSession.loadUserData();
-        setAccount(userData.profile.stxAddress.mainnet);
+        setAccount(userData.profile.stxAddress[process.env.NEXT_PUBLIC_NETWORK || "mainnet"]);
     }
   }, []);
 

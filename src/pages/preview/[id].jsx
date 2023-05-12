@@ -9,10 +9,10 @@ export async function getServerSideProps(context) {
     let res = await axios(`${process.env.NEXT_PUBLIC_DOMAIN}/metadata-app/${context.params.id}`);
     if (res.status < 300) {
       metadata = res.data;
-      console.log(metadata);
+      console.log(res.status);
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   } finally {
     return { props: { metadata } };
   }

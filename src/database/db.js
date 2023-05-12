@@ -18,6 +18,16 @@ class Database {
           required: true,
         },
 
+        minted: {
+          type: Boolean,
+          default: false
+        },
+
+        contracts: {
+          type: [String],
+          default: []
+        },
+
         mediaTitle: {
           type: String,
           required: true,

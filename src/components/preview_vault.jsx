@@ -12,10 +12,12 @@ export default function Preview({metadata: prev}) {
 
   useEffect(()=>{
     let vid = document.querySelector("#vid");
-    vid.onload = (e)=>{
+    vid && (vid.onload = (e)=>{
       console.log(vid.duration);
-    }
+    })
   }, [prev])
+
+  if(!prev) return null
 
   return (
     <div>

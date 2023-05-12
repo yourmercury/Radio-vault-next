@@ -54,6 +54,14 @@ export default function VideoForIframe({ src, id }) {
       
     // }
 
+    window.onmessage = (e)=>{
+      if(e.data.type == "pause"){
+        pause();
+      }else {
+        play();
+      }
+    }
+
     video.current.onplaying = () => {
       streamCap =
         video.current.duration <= 30 ? video.current.duration - 1 : 30;
@@ -61,11 +69,16 @@ export default function VideoForIframe({ src, id }) {
       setIsPlaying(true);
     };
 
+    // video.current.loadedmetadata = ()=>{
+    //   window.parent?.postMessage({type: "duration", data: video.current.duration}, "http://localhost:3001");
+    // }
+
     video.current.ontimeupdate = ()=> {
+      window.parent?.postMessage({type: "timeupdate", data: {currentTime: video.current.currentTime, duration: video.current.duration}}, "*");
       setTime(video.current.currentTime);
     }
 
-    video.current.onabort =
+    video.current.onabort = 
       video.current.onstalled =
       video.current.onwaiting = ()=> {
         _isPlaying = false;
@@ -93,6 +106,7 @@ export default function VideoForIframe({ src, id }) {
         video.current.onended =
         video.current.onemptied =
         video.current.onplaying =
+        window.onmessage = 
           null;
 
       interval.hasRef && clearInterval(interval);
@@ -103,17 +117,13 @@ export default function VideoForIframe({ src, id }) {
       <video
         src={src}
         ref={video}
-        onClick={()=>{
-          console.log("clicked")
-          
-        }}
         // autoPlay
-        className="absolute top-[0px] left-[0] h-[100vh] w-[100vw] block z-[-1] bg-black"
+        className="absolute top-[0px] left-[0] h-[100vh] w-[100vw] block bg-black"
         controlsList="nodownload"
-        // controls
+        controls
       ></video>
 
-      <div className="z-10 w-full flex flex-col justify-between h-full"
+      {/* <div className="z-10 w-full flex flex-col justify-between h-full"
         onClick={()=>{
           if(fresh) return;
           if(isPlaying){
@@ -123,7 +133,7 @@ export default function VideoForIframe({ src, id }) {
           }
         }}
       >
-        {/* <VideoHeader logo={""} title={""} /> */}
+
         {fresh && (
           <BigPlay
             title={""}
@@ -147,7 +157,7 @@ export default function VideoForIframe({ src, id }) {
             mute={mute}
           />
         )}
-      </div>
+      </div> */}
     </div>
   );
 }
