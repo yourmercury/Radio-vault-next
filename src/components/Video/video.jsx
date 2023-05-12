@@ -57,7 +57,7 @@ export default function VideoForIframe({ src, id }) {
     window.onmessage = (e)=>{
       if(e.data.type == "pause"){
         pause();
-      }else {
+      }else if(e.data.type == "play") {
         play();
       }
     }
